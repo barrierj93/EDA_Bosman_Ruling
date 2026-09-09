@@ -425,7 +425,7 @@ function drawMobileChart(filter = "all") {
     const lineStyle = s => s.attr("fill","none").attr("stroke","rgba(255,255,255,.82)")
       .attr("stroke-width",1).attr("vector-effect","non-scaling-stroke");
     lineStyle(annotations.append("path").attr("d",`M${anchorX-11},0H${anchorX+11} M${anchorX},0V${Math.max(0,eventTop-10)}`));
-    lineStyle(annotations.append("path").attr("d",`M${anchorX-10},${statsTop}H${anchorX+10} M${anchorX},${statsTop}V${bosmanPxY}`));
+    lineStyle(annotations.append("path").attr("d",`M${anchorX},${statsTop}V${bosmanPxY}`));
   }
 
   const pre = cumulative.find(d=>d.yr===1994), last = cumulative[cumulative.length-1];
