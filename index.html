@@ -112,22 +112,22 @@
       margin:0; padding:0; z-index:3; pointer-events:none;
     }
     .m-period { text-align:center; }
-    .m-period-label { color:rgba(255,255,255,.72); font:400 8px/1.1 'Albert Sans',sans-serif; white-space:nowrap; }
+    .m-period-label { color:rgba(255,255,255,.76); font:400 9.5px/1.1 'Albert Sans',sans-serif; white-space:nowrap; }
     .m-period, .m-event {
       position:absolute; border:0; background:transparent;
     }
-    .m-period:first-child { top:121px; left:calc(var(--m-annotation-x) - 114px); width:104px; }
-    .m-period:last-child { top:121px; left:calc(var(--m-annotation-x) + 10px); width:104px; }
-    .m-score { display:flex; align-items:flex-start; justify-content:center; gap:13px; margin-top:7px; }
+    .m-period:first-child { top:153px; left:calc(var(--m-annotation-x) - 122px); width:112px; }
+    .m-period:last-child { top:153px; left:calc(var(--m-annotation-x) + 10px); width:112px; }
+    .m-score { display:flex; align-items:flex-start; justify-content:center; gap:15px; margin-top:7px; }
     .m-score span {
       display:flex; flex-direction:column; align-items:center; justify-content:center;
-      gap:1px; font:600 19px/1 'Albert Sans',sans-serif;
+      gap:1px; font:600 27px/1 'Albert Sans',sans-serif;
     }
-    .m-score span::after { content:"Titles"; font:400 5.5px/1 'Albert Sans',sans-serif; }
-    .m-score img { width:27px; height:27px; object-fit:contain; }
+    .m-score span::after { content:"Titles"; font:400 7px/1 'Albert Sans',sans-serif; }
+    .m-score img { width:37px; height:37px; object-fit:contain; }
     .m-score .sa { color:#3DC55E; } .m-score .eu { color:#D94022; }
     .m-event {
-      top:28px; left:calc(var(--m-annotation-x) - 80px); width:160px;
+      top:34px; left:calc(var(--m-annotation-x) - 80px); width:160px;
       display:flex; flex-direction:column; align-items:center; justify-content:center;
       min-width:0; padding:0; z-index:2;
     }
@@ -149,9 +149,9 @@
     #mobile-tip:empty { display:none; }
     #mobile-tip b { color:#fff; font-family:'Albert Sans',sans-serif; }
     .m-takeaway {
-      position:absolute; top:82px; left:calc(var(--m-annotation-x) - 109px); width:218px; margin:0; padding:0;
+      position:absolute; top:88px; left:calc(var(--m-annotation-x) - 125px); width:250px; margin:0; padding:0;
       border:0; color:rgba(255,255,255,.78); text-align:center;
-      font-size:8.5px; line-height:1.28;
+      font-size:12px; line-height:1.18;
     }
     .m-takeaway strong { color:#fff; }
   }
@@ -363,10 +363,9 @@ function drawMobileChart(filter = "all") {
     .style("cursor","pointer");
 
   const referenceYears = new Set([2024,2010,1995,1980,1960,1940,1930]);
-  rows.filter(d=>referenceYears.has(d.yr)).append("line")
-    .attr("x1",d=>d.yr===1995?joinX:chartLeft).attr("x2",chartRight).attr("y1",0).attr("y2",0)
-    .attr("stroke",d=>d.yr===1995?"rgba(255,255,255,.72)":"rgba(255,255,255,.12)")
-    .attr("stroke-width",d=>d.yr===1995?1:.65);
+  rows.filter(d=>d.yr===1995).append("line")
+    .attr("x1",joinX).attr("x2",chartRight).attr("y1",0).attr("y2",0)
+    .attr("stroke","rgba(255,255,255,.72)").attr("stroke-width",1);
   rows.filter(d=>referenceYears.has(d.yr)).append("text").attr("x",yearX).attr("y",3)
     .attr("text-anchor","end")
     .attr("font-family","Albert Sans, sans-serif").attr("font-size",8.5)
@@ -425,7 +424,7 @@ function drawMobileChart(filter = "all") {
     annotations.selectAll("*").remove();
     const lineStyle = s => s.attr("fill","none").attr("stroke","rgba(255,255,255,.82)")
       .attr("stroke-width",1).attr("vector-effect","non-scaling-stroke");
-    lineStyle(annotations.append("path").attr("d",`M${anchorX-11},0H${anchorX+11} M${anchorX},0V${Math.max(0,eventTop-4)}`));
+    lineStyle(annotations.append("path").attr("d",`M${anchorX-11},0H${anchorX+11} M${anchorX},0V${Math.max(0,eventTop-10)}`));
     lineStyle(annotations.append("path").attr("d",`M${anchorX-10},${statsTop}H${anchorX+10} M${anchorX},${statsTop}V${bosmanPxY}`));
   }
 
