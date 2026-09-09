@@ -51,6 +51,85 @@
   }
   .fbtn.on  { background:rgba(255,255,255,0.08); color:#fff; border-color:rgba(255,255,255,0.48); }
   .fbtn:hover:not(.on) { color:rgba(255,255,255,0.72); border-color:rgba(255,255,255,0.32); }
+
+  /* Mobile is a genuine reflow, not a scaled-down 16:9 canvas. */
+  #mobile-dashboard { display:none; }
+
+  @media (max-width: 760px), (max-aspect-ratio: 3/4) {
+    html, body {
+      width:100%; min-height:100%; height:auto;
+      display:block; overflow-x:hidden; overflow-y:auto;
+      background:#050505;
+    }
+    #wrapper { display:none; }
+    #mobile-dashboard {
+      display:block; position:relative; min-height:100svh; color:#fff;
+      font-family:'Roboto',sans-serif; overflow:hidden;
+      padding:calc(18px + env(safe-area-inset-top)) 18px calc(30px + env(safe-area-inset-bottom));
+      background:
+        linear-gradient(180deg,rgba(4,4,4,.74) 0%,rgba(4,4,4,.9) 30%,rgba(4,4,4,.82) 68%,#050505 100%),
+        url('fondo.png') center top/auto 100svh no-repeat;
+    }
+    #mobile-dashboard::before {
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background:linear-gradient(90deg,rgba(0,0,0,.38),transparent 25%,transparent 75%,rgba(0,0,0,.38));
+    }
+    .m-content { position:relative; z-index:1; width:min(100%, 520px); margin:0 auto; }
+    .m-topline { display:flex; justify-content:flex-end; align-items:center; gap:14px; min-height:28px; }
+    .m-key { display:flex; align-items:center; gap:5px; color:rgba(255,255,255,.72); font:400 12px/1 'Barlow Condensed',sans-serif; }
+    .m-key img { width:17px; height:17px; object-fit:contain; }
+    .m-title {
+      margin-top:18px; max-width:345px;
+      font:700 clamp(31px,9.2vw,43px)/.96 'Agdasima',sans-serif;
+      letter-spacing:.01em;
+    }
+    .m-rule { height:1px; margin:14px 0 16px; background:rgba(255,255,255,.18); }
+    .m-filters { display:grid; grid-template-columns:.72fr .92fr 1.55fr; gap:7px; }
+    .m-fbtn {
+      min-height:42px; padding:8px 6px; border:1px solid rgba(255,255,255,.22);
+      border-radius:2px; background:rgba(0,0,0,.24); color:rgba(255,255,255,.5);
+      font:700 14px/1 'Barlow Condensed',sans-serif; letter-spacing:.11em; text-transform:uppercase;
+      touch-action:manipulation;
+    }
+    .m-fbtn.on { color:#fff; border-color:rgba(255,255,255,.68); background:rgba(255,255,255,.09); }
+    .m-intro { margin:17px 0 18px; color:rgba(255,255,255,.76); font-size:12px; line-height:1.48; }
+    .m-intro strong { color:#fff; font-weight:600; }
+    .m-bosman {
+      display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:10px;
+      margin:3px 0 14px; padding:13px 12px;
+      border-top:1px solid rgba(255,255,255,.14); border-bottom:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.2);
+    }
+    .m-period { text-align:center; }
+    .m-period-label { color:rgba(255,255,255,.48); font:400 10px/1.1 'Albert Sans',sans-serif; }
+    .m-score { display:flex; align-items:center; justify-content:center; gap:11px; margin-top:8px; }
+    .m-score span { display:flex; align-items:center; gap:4px; font:600 23px/1 'Albert Sans',sans-serif; }
+    .m-score img { width:24px; height:24px; object-fit:contain; }
+    .m-score .sa { color:#3DC55E; } .m-score .eu { color:#D94022; }
+    .m-event { display:flex; flex-direction:column; align-items:center; min-width:54px; }
+    .m-event-year { font:600 11px/1 'Albert Sans',sans-serif; letter-spacing:.08em; }
+    .m-event img { width:42px; height:42px; margin:5px 0; }
+    .m-event-name { font:600 12px/1 'Albert Sans',sans-serif; letter-spacing:.09em; }
+    .m-chart-card {
+      border:1px solid rgba(255,255,255,.12); background:rgba(4,4,4,.56);
+      padding:13px 10px 8px; backdrop-filter:blur(3px);
+    }
+    .m-chart-head { display:flex; justify-content:space-between; align-items:flex-end; gap:10px; padding:0 4px 9px; }
+    .m-chart-head h2 { font:600 14px/1.05 'Albert Sans',sans-serif; letter-spacing:.08em; text-transform:uppercase; }
+    .m-chart-head span { color:rgba(255,255,255,.42); font:400 10px/1 'Roboto',sans-serif; }
+    #mobile-chart { width:100%; height:auto; min-height:300px; overflow:visible; }
+    #mobile-tip {
+      min-height:49px; margin:4px 3px 0; padding:8px 9px;
+      border-top:1px solid rgba(255,255,255,.12); color:rgba(255,255,255,.64);
+      font-size:10px; line-height:1.42;
+    }
+    #mobile-tip b { color:#fff; font-family:'Albert Sans',sans-serif; }
+    .m-takeaway {
+      margin-top:14px; padding-left:11px; border-left:2px solid #D94022;
+      color:rgba(255,255,255,.75); font-size:12px; line-height:1.45;
+    }
+    .m-takeaway strong { color:#fff; }
+  }
 </style>
 </head>
 <body>
@@ -66,6 +145,42 @@
     <button class="fbtn"     data-f="Selección">National Teams</button>
   </div>
 </div>
+
+<main id="mobile-dashboard" aria-label="Bosman Ruling mobile dashboard">
+  <div class="m-content">
+    <div class="m-topline" aria-label="Continents legend">
+      <span class="m-key"><img src="south.png" alt="">South America</span>
+      <span class="m-key"><img src="eur.png" alt="">Europe</span>
+    </div>
+    <h1 class="m-title">Bosman Ruling: FIFA World Champions by Continent</h1>
+    <div class="m-rule"></div>
+    <div class="m-filters" role="group" aria-label="Competition filter">
+      <button class="m-fbtn on" data-mf="all">All</button>
+      <button class="m-fbtn" data-mf="Club">Clubs</button>
+      <button class="m-fbtn" data-mf="Selección">National teams</button>
+    </div>
+    <p class="m-intro">The 1995 ruling enabled free player movement within the EU. Before it, South America led by seven titles. <strong>Since then, Europe has won 29 championships to South America’s 7.</strong></p>
+
+    <section class="m-bosman" aria-label="Bosman comparison">
+      <div class="m-period">
+        <div class="m-period-label">Pre-Bosman</div>
+        <div class="m-score"><span class="sa"><img src="south.png" alt=""><b id="m-pre-sa">28</b></span><span class="eu"><img src="eur.png" alt=""><b id="m-pre-eu">21</b></span></div>
+      </div>
+      <div class="m-event"><span class="m-event-year">1995</span><img src="hammer.png" alt="Bosman ruling"><span class="m-event-name">BOSMAN</span></div>
+      <div class="m-period">
+        <div class="m-period-label">All-time</div>
+        <div class="m-score"><span class="sa"><img src="south.png" alt=""><b id="m-all-sa">35</b></span><span class="eu"><img src="eur.png" alt=""><b id="m-all-eu">50</b></span></div>
+      </div>
+    </section>
+
+    <section class="m-chart-card">
+      <div class="m-chart-head"><h2>Accumulated titles</h2><span>Tap a year</span></div>
+      <svg id="mobile-chart" viewBox="0 0 390 320" role="img" aria-label="Accumulated FIFA titles by continent from 1930 to 2024"></svg>
+      <div id="mobile-tip" aria-live="polite">Tap a bar to inspect the champions and accumulated totals.</div>
+    </section>
+    <p class="m-takeaway"><strong>The balance flips after 1995.</strong> European dominance accelerates and the all-time gap widens sharply.</p>
+  </div>
+</main>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
@@ -178,6 +293,78 @@ function computeCumul(filter) {
     cE += wins.filter(d => d.cont === "Europa").length;
     return { yr, cA, cE, allWins: RAW.filter(d => d.y === yr) };
   });
+}
+
+// ── MOBILE CHART ─────────────────────────────────────────────────────
+// The desktop SVG is deliberately editorial and landscape. On phones we
+// redraw only the data layer so labels and touch targets remain legible.
+function drawMobileChart(filter = "all") {
+  const node = document.getElementById("mobile-chart");
+  if (!node) return;
+
+  const ms = d3.select(node);
+  ms.selectAll("*").remove();
+
+  const data = computeCumul(filter);
+  const MW = 390, MH = 320;
+  const mm = { top:18, right:8, bottom:30, left:25 };
+  const mbY = MH - mm.bottom;
+  const source = filter === "all" ? RAW : RAW.filter(d => d.e === filter);
+  const maxTotal = Math.max(1, d3.max(data, d => Math.max(d.cA, d.cE)));
+  const mx = d3.scaleBand().domain(ALL_YEARS).range([mm.left, MW-mm.right]).paddingInner(.08);
+  const my = d3.scaleLinear().domain([0, maxTotal]).nice().range([mbY, mm.top]);
+
+  // Restrained horizontal guides: enough context without crowding the view.
+  ms.append("g").selectAll("line").data(my.ticks(3)).join("line")
+    .attr("x1",mm.left).attr("x2",MW-mm.right).attr("y1",d=>my(d)).attr("y2",d=>my(d))
+    .attr("stroke","rgba(255,255,255,.09)").attr("stroke-width",1);
+  ms.append("g").selectAll("text").data(my.ticks(3).filter(d=>d>0)).join("text")
+    .attr("x",mm.left-5).attr("y",d=>my(d)+3).attr("text-anchor","end")
+    .attr("font-family","Barlow Condensed, sans-serif").attr("font-size",9)
+    .attr("fill","rgba(255,255,255,.38)").text(d=>d);
+
+  const bw = mx.bandwidth(), half = bw/2;
+  ms.append("g").selectAll("rect.sa").data(data).join("rect")
+    .attr("class","sa").attr("x",d=>mx(d.yr)).attr("y",d=>my(d.cA))
+    .attr("width",Math.max(.8,half-.15)).attr("height",d=>mbY-my(d.cA))
+    .attr("fill",CA).attr("opacity",.94);
+  ms.append("g").selectAll("rect.eu").data(data).join("rect")
+    .attr("class","eu").attr("x",d=>mx(d.yr)+half).attr("y",d=>my(d.cE))
+    .attr("width",Math.max(.8,half-.15)).attr("height",d=>mbY-my(d.cE))
+    .attr("fill",CE).attr("opacity",.94);
+
+  const marks = [1930,1960,1995,2024];
+  ms.append("g").selectAll("line").data(marks).join("line")
+    .attr("x1",d=>mx(d)+bw/2).attr("x2",d=>mx(d)+bw/2)
+    .attr("y1",mm.top).attr("y2",mbY+4)
+    .attr("stroke",d=>d===1995?"rgba(255,255,255,.65)":"rgba(255,255,255,.2)")
+    .attr("stroke-width",d=>d===1995?1.2:.7);
+  ms.append("g").selectAll("text").data(marks).join("text")
+    .attr("x",d=>mx(d)+bw/2).attr("y",MH-10)
+    .attr("text-anchor",d=>d===1930?"start":d===2024?"end":"middle")
+    .attr("font-family","Albert Sans, sans-serif").attr("font-size",9)
+    .attr("font-weight",d=>d===1995?600:400)
+    .attr("fill",d=>d===1995?"#fff":"rgba(255,255,255,.48)").text(d=>d);
+
+  // Full-height transparent hit areas make every year easy to tap.
+  ms.append("g").selectAll("rect.hit").data(data).join("rect")
+    .attr("class","hit").attr("x",d=>mx(d.yr)-1).attr("y",mm.top)
+    .attr("width",Math.max(5,bw+2)).attr("height",mbY-mm.top)
+    .attr("fill","transparent").style("cursor","pointer")
+    .on("click", function(ev,d) {
+      ms.selectAll("rect.hit").attr("fill","transparent");
+      d3.select(this).attr("fill","rgba(255,255,255,.08)");
+      const wins = source.filter(w => w.y === d.yr);
+      const names = wins.length ? wins.map(w => `${w.c} (${w.cont === "América" ? "SA" : "EU"})`).join(" · ") : "No title recorded";
+      document.getElementById("mobile-tip").innerHTML = `<b>${d.yr}</b> — ${names}<br><span style="color:${CA}">South America ${d.cA}</span> &nbsp;·&nbsp; <span style="color:${CE}">Europe ${d.cE}</span>`;
+    });
+
+  const pre = data.find(d=>d.yr===1994), last = data[data.length-1];
+  document.getElementById("m-pre-sa").textContent = pre.cA;
+  document.getElementById("m-pre-eu").textContent = pre.cE;
+  document.getElementById("m-all-sa").textContent = last.cA;
+  document.getElementById("m-all-eu").textContent = last.cE;
+  document.getElementById("mobile-tip").textContent = "Tap a bar to inspect the champions and accumulated totals.";
 }
 
 // ── SVG + GRADIENTS ───────────────────────────────────────────────────
@@ -611,6 +798,14 @@ document.querySelectorAll(".fbtn").forEach(b => {
   });
 });
 
+document.querySelectorAll(".m-fbtn").forEach(b => {
+  b.addEventListener("click", function() {
+    document.querySelectorAll(".m-fbtn").forEach(x => x.classList.remove("on"));
+    this.classList.add("on");
+    drawMobileChart(this.dataset.mf);
+  });
+});
+
 // Posicionar los botones junto al título (coordenadas SVG → CSS px)
 function positionFilters() {
   const rect   = wrapper.getBoundingClientRect();
@@ -643,6 +838,7 @@ requestAnimationFrame(positionFilters);
 
 // ── INIT ──────────────────────────────────────────────────────────────
 drawBars("all", true);
+drawMobileChart("all");
 </script>
 </body>
 </html>
