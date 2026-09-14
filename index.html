@@ -56,16 +56,26 @@
     .story.is-visible{opacity:1;transform:none;pointer-events:auto}
     .chapter-title{max-width:390px;margin:0;font:800 clamp(40px,4.1vw,76px)/.92 "Barlow Condensed",sans-serif;letter-spacing:-.025em;text-transform:uppercase}
     .chapter-copy{max-width:390px;margin:20px 0 0;color:rgba(255,255,255,.72);font-size:15px;line-height:1.55}
-    .story-scoreboard{width:100%;height:82px;margin-top:27px;padding-top:15px;border-top:1px solid rgba(255,255,255,.18);grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr);gap:16px}
-    .story-scoreboard .score{width:100%;min-width:0;grid-template-columns:44px minmax(0,1fr);gap:10px}
-    .story-scoreboard .score:last-child{grid-template-columns:44px minmax(0,1fr)}
-    .story-scoreboard .score-copy{min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;text-align:left}
-    .story-scoreboard .score-value{display:flex;align-items:baseline;gap:6px;white-space:nowrap}
-    .story-scoreboard .score img{width:44px;height:44px}
-    .story-scoreboard .score .continent{white-space:nowrap}
-    .story-scoreboard .score strong{font-size:36px}
-    .story-scoreboard .score small{margin-left:0}
-    .story-scoreboard .score-divider{height:48px}
+    .story-scoreboard{position:relative;width:100%;height:auto;margin-top:27px;display:grid;grid-template-columns:minmax(0,1fr) 42px minmax(0,1fr);gap:8px;align-items:stretch}
+    .stage-scoreboard{width:min(430px,62%);margin:0 auto 14px;flex:none}
+    .confed-card{position:relative;min-width:0;padding:13px 13px 11px;border:1px solid color-mix(in srgb,var(--score-color) 42%,transparent);background:linear-gradient(145deg,color-mix(in srgb,var(--score-color) 13%,transparent),rgba(4,7,6,.66) 58%);box-shadow:inset 0 0 30px rgba(0,0,0,.3),0 9px 28px rgba(0,0,0,.18);overflow:hidden}
+    .confed-card::before{content:"";position:absolute;inset:0;border-top:2px solid var(--score-color);opacity:.9;pointer-events:none}
+    .confed-head{display:flex;align-items:center;gap:8px;min-height:36px}
+    .confed-head img{width:34px;height:34px;object-fit:contain;flex:none;filter:drop-shadow(0 0 9px color-mix(in srgb,var(--score-color) 28%,transparent))}
+    .confed-head span,.confed-head small{display:block;text-transform:uppercase}
+    .confed-name{color:var(--score-color);font:700 13px/1 "Albert Sans",sans-serif;letter-spacing:.12em}
+    .confed-region{margin-top:4px;color:rgba(255,255,255,.38);font:600 7px/1 "Albert Sans",sans-serif;letter-spacing:.17em}
+    .confed-total{display:flex;align-items:flex-end;gap:8px;margin:7px 0 9px}
+    .confed-total strong{color:var(--score-color);font:700 43px/.82 "Albert Sans",sans-serif;letter-spacing:-.05em}
+    .confed-total span{padding-bottom:2px;color:rgba(255,255,255,.54);font:600 7px/1.15 "Albert Sans",sans-serif;letter-spacing:.15em;text-transform:uppercase}
+    .confed-breakdown{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(255,255,255,.13)}
+    .confed-breakdown span{display:flex;align-items:baseline;justify-content:space-between;gap:4px;padding:8px 6px 0 0}
+    .confed-breakdown span+span{padding-left:7px;border-left:1px solid rgba(255,255,255,.13)}
+    .confed-breakdown small{color:rgba(255,255,255,.45);font:600 6.5px/1 "Albert Sans",sans-serif;letter-spacing:.08em;text-transform:uppercase}
+    .confed-breakdown b{color:#fff;font:700 15px/1 "Albert Sans",sans-serif}
+    .versus{position:relative;z-index:2;display:flex;align-items:center;justify-content:center}
+    .versus::before{content:"";position:absolute;top:9px;bottom:9px;left:50%;width:1px;background:linear-gradient(transparent,rgba(255,255,255,.45),transparent)}
+    .versus span{position:relative;display:grid;place-items:center;width:38px;height:38px;border:1px solid rgba(255,255,255,.65);border-radius:50%;background:#050606;box-shadow:0 0 18px rgba(255,255,255,.12);font:800 13px/1 "Barlow Condensed",sans-serif;letter-spacing:.08em}
 
     .stage{position:absolute;z-index:8;left:30%;right:10%;top:92px;bottom:38px;display:flex;flex-direction:column;align-items:center;transition:opacity .45s ease,transform .45s ease}
     .stage.is-intro-hidden{opacity:0!important;transform:translateY(14px);pointer-events:none}
@@ -83,6 +93,13 @@
     .stage-current .current-winner-crest{width:180px;height:180px;margin-bottom:8px}
     .stage-current .current-winner-name{font-size:20px}
     .stage-current .active-year{margin-top:10px;font-size:15px}
+    .story-current{min-height:300px;margin-top:26px}
+    .story-current .current-winners{width:100%;min-height:258px;gap:18px}
+    .story-current .current-winner{min-width:0;flex:1}
+    .story-current .current-winner-crest{width:175px;height:220px;margin-bottom:10px}
+    .story-current .current-winner:only-child .current-winner-crest{width:250px;height:250px}
+    .story-current .current-winner-name{font-size:26px}
+    .story-current .active-year{margin-top:11px;font-size:18px}
 
     .scoreboard{height:92px;display:grid;grid-template-columns:1fr 1px 1fr;align-items:center;gap:31px}
     .score-divider{height:65px;background:rgba(255,255,255,.35)}
@@ -147,6 +164,12 @@
       .stage-current .current-winner-crest{width:164px;height:164px;margin-bottom:6px}
       .stage-current .current-winner-name{font-size:18px}
       .stage-current .active-year{margin-top:7px;font-size:14px}
+      .story-current{min-height:260px}
+      .story-current .current-winners{min-height:220px;gap:14px}
+      .story-current .current-winner-crest{width:165px;height:190px}
+      .story-current .current-winner:only-child .current-winner-crest{width:220px;height:220px}
+      .story-current .current-winner-name{font-size:23px}
+      .story-current .active-year{font-size:16px}
       .bubble-field{margin-top:0;min-height:300px}
     }
     @media (max-width:760px),(max-aspect-ratio:3/4){
@@ -154,14 +177,22 @@
       .backdrop{background-image:url("./img/backg-mobile.png");background-position:center}.vignette{box-shadow:inset 0 0 72px 20px rgba(0,0,0,.82)}
       .topbar{height:108px;margin:0 14px;grid-template-columns:1fr;align-content:center;gap:10px}.title{gap:12px;white-space:nowrap;max-width:310px}.brand-name{font-size:14px}.brand-separator{height:27px}.brand-description{font-size:7px;line-height:1.65;letter-spacing:.28em}.filters{position:absolute;top:70px;left:0}.filter{height:26px;padding:0 8px;font-size:9px}
       .intro{left:20px;right:20px;top:47%;width:auto}.intro h2{font-size:clamp(59px,20vw,82px)}.intro p{font-size:14px;line-height:1.5}.scroll-cue{margin-top:25px}
-      .story{left:14px;right:55px;top:121px;bottom:12px;width:auto;justify-content:flex-start}.story-copy-wrap{max-width:none}.chapter-title{max-width:100%;font-size:clamp(34px,10.8vw,41px);line-height:.87}.chapter-copy{max-width:100%;font-size:11px;line-height:1.38;margin-top:9px}.story-scoreboard{height:48px;margin-top:9px;padding-top:7px;gap:8px}.story-scoreboard .score{min-width:104px;grid-template-columns:25px auto;gap:5px}.story-scoreboard .score:last-child{grid-template-columns:25px auto}.story-scoreboard .score img{width:25px;height:25px}.story-scoreboard .score strong{font-size:24px}.story-scoreboard .score-divider{height:31px}
+      .story{left:14px;right:55px;top:121px;bottom:12px;width:auto;justify-content:flex-start}.story-copy-wrap{max-width:none}.chapter-title{max-width:100%;font-size:clamp(34px,10.8vw,41px);line-height:.87}.chapter-copy{max-width:100%;font-size:11px;line-height:1.38;margin-top:9px}.story-scoreboard{margin-top:14px;grid-template-columns:minmax(0,1fr) 29px minmax(0,1fr);gap:3px}.confed-card{padding:7px 6px 6px}.confed-head{gap:4px;min-height:24px}.confed-head img{width:23px;height:23px}.confed-name{font-size:8px;letter-spacing:.07em}.confed-region{font-size:5px;margin-top:2px;letter-spacing:.08em}.confed-total{gap:4px;margin:4px 0 5px}.confed-total strong{font-size:25px}.confed-total span{font-size:5px;letter-spacing:.08em}.confed-breakdown span{padding:5px 3px 0 0}.confed-breakdown span+span{padding-left:3px}.confed-breakdown small{font-size:4.5px;letter-spacing:0}.confed-breakdown b{font-size:10px}.versus span{width:27px;height:27px;font-size:10px}
       .story.is-visible~.stage{top:clamp(340px,41svh,385px)}
       .stage{left:8px;right:48px;top:clamp(300px,36svh,340px);bottom:54px}.active-year{font-size:11px}.current-winners{gap:22px;min-height:54px;margin-top:5px}.current-winner{min-width:74px}.current-winner-crest{width:34px;height:34px;margin-bottom:4px}.current-winner-name{max-width:90px;font-size:12px}.current-empty{max-width:270px;font-size:29px;line-height:.9}.stage-current{min-height:124px}.stage-current .current-winners{min-height:98px;margin-top:0;gap:20px}.stage-current .current-winner{min-width:92px}.stage-current .current-winner-crest{width:88px;height:88px;margin-bottom:4px}.stage-current .current-winner-name{font-size:12px}.stage-current .active-year{margin-top:5px;font-size:10px}
       .scoreboard{height:57px;gap:9px}.score{grid-template-columns:27px auto;min-width:105px;gap:6px}.score:last-child{grid-template-columns:auto 27px}.score img{width:27px;height:27px}.score .continent{font-size:7px;letter-spacing:.1em}.score strong{font-size:26px}.score small{font-size:6px;margin-left:2px}.score-divider{height:37px}
       .bubble-field{min-height:110px;margin-top:0}.bubble-crest{opacity:.09}.bubble.is-active .bubble-crest{opacity:.14}.bubble-name{font-size:6.5px}.bubble-count{font-size:8px;margin-top:2px}
       .timeline{top:118px;right:4px;bottom:21px;width:52px}.timeline-track{left:12px}.timeline-fill{left:11px}.timeline-dots{left:8px}.timeline-marker{left:-1px;gap:5px}.marker-ring{width:27px;height:27px}.marker-year{right:34px;top:2px;font-size:22px}.ticks{display:none}
       .special{left:0;right:0;top:150px;bottom:70px}.milestone-panel{width:min(680px,calc(100% - 28px));padding:20px 8px}.milestone-panel h3{font-size:52px}.milestone-panel h3.is-long{font-size:36px}.milestone-panel .sub{font-size:16px}.gavel{width:58px;height:58px;margin:16px auto}.gavel img{width:34px;height:34px}.pre-score{gap:18px}.pre-score span{font-size:31px;gap:6px}.pre-score img{width:33px;height:33px}.milestone-panel p{font-size:11px;margin-top:15px}
-      .story-scoreboard{height:59px;margin-top:20px;padding-top:12px}
+      .story-scoreboard{margin-top:20px}
+      .stage-scoreboard{width:100%;margin:0 auto 9px}
+      .story-current{min-height:168px;margin-top:12px}
+      .story-current .current-winners{min-height:140px;gap:10px}
+      .story-current .current-winner{min-width:0}
+      .story-current .current-winner-crest{width:110px;height:118px;margin-bottom:5px}
+      .story-current .current-winner:only-child .current-winner-crest{width:138px;height:138px}
+      .story-current .current-winner-name{font-size:15px}
+      .story-current .active-year{margin-top:6px;font-size:12px}
       .story.is-visible~.stage{top:clamp(405px,49svh,455px)}
       .stage-current{padding-top:8px}
     }
@@ -171,7 +202,7 @@
       .stage{right:44px;top:clamp(292px,35svh,326px)}
     }
     @media (max-width:760px) and (max-height:680px){
-      .story{top:113px;bottom:8px}.chapter-title{font-size:30px}.chapter-copy{font-size:9px;line-height:1.3;margin-top:7px}.story-scoreboard{height:40px;margin-top:4px;padding-top:4px}.story-scoreboard .score strong{font-size:21px}
+      .story{top:113px;bottom:8px}.chapter-title{font-size:30px}.chapter-copy{font-size:9px;line-height:1.3;margin-top:7px}.story-scoreboard{margin-top:7px}.confed-card{padding-top:5px;padding-bottom:5px}.confed-head{min-height:20px}.confed-head img{width:19px;height:19px}.confed-total{margin:2px 0 4px}.confed-total strong{font-size:21px}.confed-breakdown span{padding-top:3px}.story-current{min-height:126px;margin-top:6px}.story-current .current-winners{min-height:103px}.story-current .current-winner-crest{width:82px;height:85px}.story-current .current-winner:only-child .current-winner-crest{width:104px;height:104px}.story-current .current-winner-name{font-size:12px}.story-current .active-year{font-size:10px;margin-top:3px}
       .stage{top:258px;bottom:42px}.story.is-visible~.stage{top:305px}.scoreboard{height:47px}.stage-current{min-height:105px}.stage-current .current-winners{min-height:82px}.stage-current .current-winner-crest{width:72px;height:72px}.bubble-field{min-height:75px}
       .story-scoreboard{height:50px;margin-top:12px;padding-top:8px}
       .story.is-visible~.stage{top:360px}.stage-current{padding-top:5px}
@@ -201,18 +232,26 @@
         <div class="story-copy-wrap">
           <h2 class="chapter-title" id="chapterTitle"></h2>
           <p class="chapter-copy" id="chapterCopy"></p>
-          <div class="scoreboard story-scoreboard" aria-label="Accumulated titles">
-            <div class="score" style="--score-color:var(--sa)"><img src="south.png" alt=""><div class="score-copy"><span class="continent">South America</span><span class="score-value"><strong id="saScore">01</strong><small>titles</small></span></div></div>
-            <span class="score-divider"></span>
-            <div class="score" style="--score-color:var(--eu)"><img src="eur.png" alt=""><div class="score-copy"><span class="continent">Europe</span><span class="score-value"><strong id="euScore">00</strong><small>titles</small></span></div></div>
+          <div class="current stage-current story-current">
+            <div class="current-winners" id="currentWinners" aria-live="polite"></div>
+            <span class="active-year" id="activeYear">1930</span>
           </div>
         </div>
       </aside>
 
       <section class="stage" id="stage">
-        <div class="current stage-current">
-          <div class="current-winners" id="currentWinners" aria-live="polite"></div>
-          <span class="active-year" id="activeYear">1930</span>
+        <div class="story-scoreboard stage-scoreboard" aria-label="Accumulated titles by confederation">
+          <article class="confed-card" style="--score-color:var(--sa)">
+            <div class="confed-head"><img src="south.png" alt=""><div><span class="confed-name">CONMEBOL</span><small class="confed-region">South America</small></div></div>
+            <div class="confed-total"><strong id="saScore">01</strong><span>Total<br>titles</span></div>
+            <div class="confed-breakdown"><span><small>Clubs</small><b id="saClubScore">00</b></span><span><small>National</small><b id="saNationalScore">01</b></span></div>
+          </article>
+          <div class="versus" aria-hidden="true"><span>VS</span></div>
+          <article class="confed-card" style="--score-color:var(--eu)">
+            <div class="confed-head"><img src="eur.png" alt=""><div><span class="confed-name">UEFA</span><small class="confed-region">Europe</small></div></div>
+            <div class="confed-total"><strong id="euScore">00</strong><span>Total<br>titles</span></div>
+            <div class="confed-breakdown"><span><small>Clubs</small><b id="euClubScore">00</b></span><span><small>National</small><b id="euNationalScore">00</b></span></div>
+          </article>
         </div>
         <div class="bubble-field" id="bubbleField" aria-label="Champions sized by accumulated titles"></div>
       </section>
@@ -255,16 +294,18 @@
       {year:1995,title:"Bosman",sub:"Ruling",detail:"Before the ruling, South America held a seven-title advantage. From this point, the balance begins to turn decisively toward Europe.",color:"#fff",icon:"hammer.png",iconAlt:"Gavel",sa:"28",eu:"21"},
       {year:2009,title:"The decisive acceleration",sub:"Europe breaks away",detail:"Barcelona begins a fifteen-year sequence broken only once by a South American club.",color:EU,icon:"eur.png",iconAlt:"Europe",sa:"33",eu:"33"}
     ];
-    const HIGHLIGHT_OFFSET=.55,MILESTONE_BY_YEAR=new Map(milestones.map(m=>[m.year,m])),SCROLL_STEPS=[];
-    for(let year=START;year<=END;year++){
-      const milestone=MILESTONE_BY_YEAR.get(year);
-      if(milestone)SCROLL_STEPS.push({year,position:Math.max(START,year-HIGHLIGHT_OFFSET),milestone});
-      SCROLL_STEPS.push({year,position:year,milestone:null});
-    }
+    const HIGHLIGHT_OFFSET=.55;
     const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-    const els={space:$("#scrollSpace"),intro:$("#intro"),story:$("#story"),stage:$("#stage"),current:$(".stage-current"),special:$("#milestoneSpecial"),year:$("#activeYear"),currentWinners:$("#currentWinners"),sa:$("#saScore"),eu:$("#euScore"),field:$("#bubbleField"),markerYear:$("#markerYear"),dots:$("#timelineDots"),ticks:$("#ticks"),chapterTitle:$("#chapterTitle"),chapterCopy:$("#chapterCopy"),milestonePanel:$("#milestonePanel"),milestoneYear:$("#milestoneYear"),milestoneTitle:$("#milestoneTitle"),milestoneSub:$("#milestoneSub"),milestoneIcon:$("#milestoneIcon"),milestoneSa:$("#milestoneSa"),milestoneEu:$("#milestoneEu"),milestoneDetail:$("#milestoneDetail")};
-    let filter="all",activeYear=START,activeTimelinePosition=START,activeMilestone=null,lastMoment="",introMode=null,bubbleEls=new Map(),raf=0;
+    const els={space:$("#scrollSpace"),intro:$("#intro"),story:$("#story"),stage:$("#stage"),current:$(".stage-current"),special:$("#milestoneSpecial"),year:$("#activeYear"),currentWinners:$("#currentWinners"),sa:$("#saScore"),eu:$("#euScore"),saClub:$("#saClubScore"),saNational:$("#saNationalScore"),euClub:$("#euClubScore"),euNational:$("#euNationalScore"),field:$("#bubbleField"),markerYear:$("#markerYear"),dots:$("#timelineDots"),ticks:$("#ticks"),chapterTitle:$("#chapterTitle"),chapterCopy:$("#chapterCopy"),milestonePanel:$("#milestonePanel"),milestoneYear:$("#milestoneYear"),milestoneTitle:$("#milestoneTitle"),milestoneSub:$("#milestoneSub"),milestoneIcon:$("#milestoneIcon"),milestoneSa:$("#milestoneSa"),milestoneEu:$("#milestoneEu"),milestoneDetail:$("#milestoneDetail")};
+    let filter="all",scrollSteps=[],activeYear=START,activeTimelinePosition=START,activeMilestone=null,lastMoment="",introMode=null,bubbleEls=new Map(),raf=0;
     const filtered=()=>filter==="all"?RAW:RAW.filter(d=>d.e===filter);
+    function buildScrollSteps(){
+      const championYears=[...new Set(filtered().map(d=>d.y))];
+      return [
+        ...championYears.map(year=>({year,position:year,milestone:null})),
+        ...milestones.map(milestone=>({year:milestone.year,position:Math.max(START,milestone.year-HIGHLIGHT_OFFSET),milestone}))
+      ].sort((a,b)=>a.position-b.position||(a.milestone?-1:1));
+    }
     const pct=y=>(y-START)/(END-START)*100;
     const pad=n=>String(n).padStart(2,"0");
     const hash=s=>[...s].reduce((a,c)=>((a<<5)-a+c.charCodeAt(0))|0,0);
@@ -340,6 +381,11 @@
       filtered().filter(d=>d.y<=year).forEach(d=>{d.cont==="América"?sa++:eu++;const key=d.cont+"|"+d.c;const v=map.get(key)||{name:d.c,cont:d.cont,type:d.e,count:0};v.count++;map.set(key,v)});
       return {map:[...map.values()],sa,eu};
     }
+    function confederationScoreThrough(year){
+      const score={sa:{total:0,club:0,national:0},eu:{total:0,club:0,national:0}};
+      RAW.filter(d=>d.y<=year).forEach(d=>{const side=d.cont==="América"?score.sa:score.eu;side.total++;d.e==="Club"?side.club++:side.national++});
+      return score;
+    }
     function layoutBubbles(data){
       const rect=els.field.getBoundingClientRect(),mobile=innerWidth<=760,compactDesktop=!mobile&&innerHeight<=850,w=rect.width||600,h=rect.height||330;
       const max=Math.max(1,...data.map(d=>d.count));
@@ -383,20 +429,21 @@
     function render(year,force=false,intro=false,milestone=null,timelinePosition=year){
       const moment=intro?"intro":milestone?`highlight-${year}`:`champion-${year}`;
       if(moment===lastMoment&&!force)return;lastMoment=moment;activeYear=year;activeTimelinePosition=timelinePosition;activeMilestone=milestone;introMode=intro;
-      const source=filtered(),dataYear=milestone?year-1:year,winners=milestone?[]:source.filter(d=>d.y===year),counts=countsThrough(dataYear),progress=Math.max(0,Math.min(1,(timelinePosition-START)/(END-START)));
+      const source=filtered(),dataYear=milestone?year-1:year,winners=milestone?[]:source.filter(d=>d.y===year),counts=countsThrough(dataYear),confedScore=confederationScoreThrough(dataYear),progress=Math.max(0,Math.min(1,(timelinePosition-START)/(END-START)));
       document.documentElement.style.setProperty("--year-progress",(progress*100)+"%");document.documentElement.style.setProperty("--year-track-trim",(34*progress)+"px");document.documentElement.style.setProperty("--active-color",milestone?milestone.color:winners[0]?(winners[0].cont==="América"?SA:EU):"#fff");
       els.intro.classList.toggle("is-hidden",!intro);els.story.classList.toggle("is-visible",!intro&&!milestone);els.special.classList.toggle("is-visible",Boolean(milestone));els.stage.classList.toggle("is-intro-hidden",intro);els.stage.style.opacity=milestone?".12":"1";showMilestone(milestone);
-      els.year.textContent=year;els.markerYear.textContent=year;els.sa.textContent=pad(counts.sa);els.eu.textContent=pad(counts.eu);
+      els.year.textContent=year;els.markerYear.textContent=year;els.sa.textContent=pad(confedScore.sa.total);els.eu.textContent=pad(confedScore.eu.total);els.saClub.textContent=pad(confedScore.sa.club);els.saNational.textContent=pad(confedScore.sa.national);els.euClub.textContent=pad(confedScore.eu.club);els.euNational.textContent=pad(confedScore.eu.national);
       drawCurrentWinners(winners);
       drawBubbles(counts.map,winners);showChapter(year);
       $$(".timeline-dot").forEach(d=>{const y=+d.dataset.year,valid=filter==="all"||d.dataset.type===filter;d.hidden=!valid;d.classList.toggle("is-past",valid&&y<year);d.classList.toggle("is-now",valid&&!milestone&&y===year)});
       $$(".timeline-milestone").forEach(d=>{const y=+d.dataset.year;d.classList.toggle("is-past",y<year||!milestone&&y===year);d.classList.toggle("is-now",Boolean(milestone)&&y===year)});
     }
-    function onScroll(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;const max=els.space.offsetHeight-innerHeight,p=Math.max(0,Math.min(1,scrollY/max)),intro=p<INTRO_SCROLL,dataProgress=intro?0:(p-INTRO_SCROLL)/(1-INTRO_SCROLL),stepIndex=Math.min(SCROLL_STEPS.length-1,Math.floor(dataProgress*SCROLL_STEPS.length)),step=SCROLL_STEPS[stepIndex]||SCROLL_STEPS[0];render(step.year,false,intro,intro?null:step.milestone,step.position)})}
-    $$(".filter").forEach(btn=>btn.addEventListener("click",()=>{filter=btn.dataset.filter;$$('.filter').forEach(b=>b.classList.toggle('is-active',b===btn));bubbleEls.forEach(el=>el.remove());bubbleEls.clear();lastMoment="";render(activeYear,true,introMode,activeMilestone,activeTimelinePosition)}));
+    function renderFromScroll(){const max=els.space.offsetHeight-innerHeight,p=Math.max(0,Math.min(1,scrollY/max)),intro=p<INTRO_SCROLL,dataProgress=intro?0:(p-INTRO_SCROLL)/(1-INTRO_SCROLL),stepIndex=Math.min(scrollSteps.length-1,Math.floor(dataProgress*scrollSteps.length)),step=scrollSteps[stepIndex]||scrollSteps[0];render(step.year,false,intro,intro?null:step.milestone,step.position)}
+    function onScroll(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;renderFromScroll()})}
+    $$(".filter").forEach(btn=>btn.addEventListener("click",()=>{filter=btn.dataset.filter;$$('.filter').forEach(b=>b.classList.toggle('is-active',b===btn));bubbleEls.forEach(el=>el.remove());bubbleEls.clear();scrollSteps=buildScrollSteps();lastMoment="";renderFromScroll()}));
     addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",()=>{lastMoment="";render(activeYear,true,introMode,activeMilestone,activeTimelinePosition)});
-    addEventListener("keydown",e=>{const step=(els.space.offsetHeight-innerHeight)/SCROLL_STEPS.length;if(["ArrowDown","PageDown","ArrowRight"].includes(e.key)){e.preventDefault();scrollBy({top:e.key==="PageDown"?step*5:step,behavior:"smooth"})}if(["ArrowUp","PageUp","ArrowLeft"].includes(e.key)){e.preventDefault();scrollBy({top:e.key==="PageUp"?-step*5:-step,behavior:"smooth"})}if(e.key==="Home"){e.preventDefault();scrollTo({top:0,behavior:"smooth"})}if(e.key==="End"){e.preventDefault();scrollTo({top:els.space.offsetHeight,behavior:"smooth"})}});
-    makeTimeline();render(START,true,true);onScroll();
+    addEventListener("keydown",e=>{const step=(els.space.offsetHeight-innerHeight)/scrollSteps.length;if(["ArrowDown","PageDown","ArrowRight"].includes(e.key)){e.preventDefault();scrollBy({top:e.key==="PageDown"?step*5:step,behavior:"smooth"})}if(["ArrowUp","PageUp","ArrowLeft"].includes(e.key)){e.preventDefault();scrollBy({top:e.key==="PageUp"?-step*5:-step,behavior:"smooth"})}if(e.key==="Home"){e.preventDefault();scrollTo({top:0,behavior:"smooth"})}if(e.key==="End"){e.preventDefault();scrollTo({top:els.space.offsetHeight,behavior:"smooth"})}});
+    scrollSteps=buildScrollSteps();makeTimeline();render(START,true,true);onScroll();
   </script>
 </body>
 </html>
