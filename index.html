@@ -18,6 +18,7 @@
       --faint:rgba(245,245,242,.14);
       --panel:rgba(8,9,9,.68);
       --year-progress:0%;
+      --year-track-trim:0px;
     }
     *{box-sizing:border-box}
     html{background:#050606;scroll-behavior:auto}
@@ -103,14 +104,14 @@
 
     .timeline{position:absolute;z-index:15;top:102px;right:0;bottom:48px;width:132px}
     .timeline-track{position:absolute;left:23px;top:8px;bottom:26px;width:1px;background:rgba(255,255,255,.42)}
-    .timeline-fill{position:absolute;left:22px;top:8px;width:3px;height:var(--year-progress);max-height:calc(100% - 34px);background:linear-gradient(var(--sa),#fff 68%,var(--eu));box-shadow:0 0 14px rgba(255,255,255,.22)}
+    .timeline-fill{position:absolute;left:22px;top:8px;width:3px;height:calc(var(--year-progress) - var(--year-track-trim));max-height:calc(100% - 34px);background:linear-gradient(var(--sa),#fff 68%,var(--eu));box-shadow:0 0 14px rgba(255,255,255,.22)}
     .timeline-dots{position:absolute;inset:8px auto 26px 18px;width:11px}
     .timeline-dot{position:absolute;left:1px;width:7px;height:7px;border-radius:50%;background:var(--dot);transform:translateY(-50%);opacity:.44;transition:opacity .25s,transform .25s,box-shadow .25s}
     .timeline-dot.is-past{opacity:.9}.timeline-dot.is-now{opacity:1;transform:translateY(-50%) scale(1.7);box-shadow:0 0 10px var(--dot)}
     .timeline-milestone{position:absolute;z-index:3;left:-3px;width:15px;height:15px;border:1px solid rgba(255,255,255,.9);border-radius:50%;background:#090a0a;box-shadow:0 0 0 3px rgba(255,255,255,.06),0 0 13px rgba(255,255,255,.28);transform:translateY(-50%);transition:.25s ease}
     .timeline-milestone::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--milestone-color,#fff)}
     .timeline-milestone.is-past{opacity:.72}.timeline-milestone.is-now{transform:translateY(-50%) scale(1.32);box-shadow:0 0 0 4px rgba(255,255,255,.09),0 0 18px var(--milestone-color,#fff)}
-    .timeline-marker{position:absolute;left:10px;top:var(--year-progress);display:flex;align-items:center;gap:10px;transform:translateY(-50%);transition:top .12s linear}
+    .timeline-marker{position:absolute;z-index:5;left:10px;top:calc(8px + var(--year-progress) - var(--year-track-trim));display:flex;align-items:center;gap:10px;transform:translateY(-50%);transition:top .12s linear}
     .marker-ring{width:28px;height:28px;border:2px solid #fff;border-radius:50%;display:grid;place-items:center;background:rgba(4,5,5,.88);box-shadow:0 0 18px rgba(255,255,255,.18)}
     .marker-ring::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--active-color,#fff);box-shadow:0 0 10px var(--active-color,#fff)}
     .marker-year{position:absolute;right:40px;font:700 clamp(31px,3vw,55px)/1 "Barlow Condensed",sans-serif;white-space:nowrap;text-align:right;text-shadow:0 2px 10px #000}
@@ -119,7 +120,7 @@
     .tick::before{content:"";width:8px;height:1px;background:rgba(255,255,255,.5)}
     .tick.is-key{color:rgba(255,255,255,.86);font-weight:600}
 
-    .special{position:absolute;z-index:18;left:29%;right:9%;top:104px;bottom:45px;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transform:scale(.96);transition:opacity .45s ease,transform .45s ease}
+    .special{position:absolute;z-index:18;left:0;right:0;top:104px;bottom:45px;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transform:scale(.96);transition:opacity .45s ease,transform .45s ease}
     .special.is-visible{opacity:1;transform:none}
     .milestone-panel{width:min(680px,94%);padding:28px 34px;border-top:1px solid rgba(255,255,255,.28);border-bottom:1px solid rgba(255,255,255,.28);background:linear-gradient(90deg,transparent,rgba(0,0,0,.68) 18%,rgba(0,0,0,.68) 82%,transparent);text-align:center}
     .milestone-panel .year{color:var(--milestone-color,#fff);font:600 18px/1 "Albert Sans",sans-serif;letter-spacing:.14em}
@@ -159,7 +160,7 @@
       .scoreboard{height:57px;gap:9px}.score{grid-template-columns:27px auto;min-width:105px;gap:6px}.score:last-child{grid-template-columns:auto 27px}.score img{width:27px;height:27px}.score .continent{font-size:7px;letter-spacing:.1em}.score strong{font-size:26px}.score small{font-size:6px;margin-left:2px}.score-divider{height:37px}
       .bubble-field{min-height:110px;margin-top:0}.bubble-crest{opacity:.09}.bubble.is-active .bubble-crest{opacity:.14}.bubble-name{font-size:6.5px}.bubble-count{font-size:8px;margin-top:2px}
       .timeline{top:118px;right:4px;bottom:21px;width:52px}.timeline-track{left:12px}.timeline-fill{left:11px}.timeline-dots{left:8px}.timeline-marker{left:-1px;gap:5px}.marker-ring{width:27px;height:27px}.marker-year{right:34px;top:2px;font-size:22px}.ticks{display:none}
-      .special{left:16px;right:55px;top:150px;bottom:70px}.milestone-panel{padding:20px 8px}.milestone-panel h3{font-size:52px}.milestone-panel h3.is-long{font-size:36px}.milestone-panel .sub{font-size:16px}.gavel{width:58px;height:58px;margin:16px auto}.gavel img{width:34px;height:34px}.pre-score{gap:18px}.pre-score span{font-size:31px;gap:6px}.pre-score img{width:33px;height:33px}.milestone-panel p{font-size:11px;margin-top:15px}
+      .special{left:0;right:0;top:150px;bottom:70px}.milestone-panel{width:min(680px,calc(100% - 28px));padding:20px 8px}.milestone-panel h3{font-size:52px}.milestone-panel h3.is-long{font-size:36px}.milestone-panel .sub{font-size:16px}.gavel{width:58px;height:58px;margin:16px auto}.gavel img{width:34px;height:34px}.pre-score{gap:18px}.pre-score span{font-size:31px;gap:6px}.pre-score img{width:33px;height:33px}.milestone-panel p{font-size:11px;margin-top:15px}
       .story-scoreboard{height:59px;margin-top:20px;padding-top:12px}
       .story.is-visible~.stage{top:clamp(405px,49svh,455px)}
       .stage-current{padding-top:8px}
@@ -254,9 +255,15 @@
       {year:1995,title:"Bosman",sub:"Ruling",detail:"Before the ruling, South America held a seven-title advantage. From this point, the balance begins to turn decisively toward Europe.",color:"#fff",icon:"hammer.png",iconAlt:"Gavel",sa:"28",eu:"21"},
       {year:2009,title:"The decisive acceleration",sub:"Europe breaks away",detail:"Barcelona begins a fifteen-year sequence broken only once by a South American club.",color:EU,icon:"eur.png",iconAlt:"Europe",sa:"33",eu:"33"}
     ];
+    const HIGHLIGHT_OFFSET=.55,MILESTONE_BY_YEAR=new Map(milestones.map(m=>[m.year,m])),SCROLL_STEPS=[];
+    for(let year=START;year<=END;year++){
+      const milestone=MILESTONE_BY_YEAR.get(year);
+      if(milestone)SCROLL_STEPS.push({year,position:Math.max(START,year-HIGHLIGHT_OFFSET),milestone});
+      SCROLL_STEPS.push({year,position:year,milestone:null});
+    }
     const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
     const els={space:$("#scrollSpace"),intro:$("#intro"),story:$("#story"),stage:$("#stage"),current:$(".stage-current"),special:$("#milestoneSpecial"),year:$("#activeYear"),currentWinners:$("#currentWinners"),sa:$("#saScore"),eu:$("#euScore"),field:$("#bubbleField"),markerYear:$("#markerYear"),dots:$("#timelineDots"),ticks:$("#ticks"),chapterTitle:$("#chapterTitle"),chapterCopy:$("#chapterCopy"),milestonePanel:$("#milestonePanel"),milestoneYear:$("#milestoneYear"),milestoneTitle:$("#milestoneTitle"),milestoneSub:$("#milestoneSub"),milestoneIcon:$("#milestoneIcon"),milestoneSa:$("#milestoneSa"),milestoneEu:$("#milestoneEu"),milestoneDetail:$("#milestoneDetail")};
-    let filter="all",activeYear=START,lastYear=-1,introMode=null,bubbleEls=new Map(),raf=0;
+    let filter="all",activeYear=START,activeTimelinePosition=START,activeMilestone=null,lastMoment="",introMode=null,bubbleEls=new Map(),raf=0;
     const filtered=()=>filter==="all"?RAW:RAW.filter(d=>d.e===filter);
     const pct=y=>(y-START)/(END-START)*100;
     const pad=n=>String(n).padStart(2,"0");
@@ -325,7 +332,7 @@
     function makeTimeline(){
       els.dots.innerHTML="";els.ticks.innerHTML="";
       RAW.forEach(d=>{const dot=document.createElement("i");dot.className="timeline-dot";dot.dataset.year=d.y;dot.dataset.type=d.e;dot.style.cssText=`top:${pct(d.y)}%;--dot:${d.cont==="América"?SA:EU}`;els.dots.append(dot)});
-      milestones.forEach(m=>{const marker=document.createElement("i");marker.className="timeline-milestone";marker.dataset.year=m.year;marker.title=`${m.year} — ${m.title}`;marker.style.cssText=`top:${pct(m.year)}%;--milestone-color:${m.color}`;els.dots.append(marker)});
+      milestones.forEach(m=>{const marker=document.createElement("i");marker.className="timeline-milestone";marker.dataset.year=m.year;marker.title=`Before ${m.year} — ${m.title}`;marker.style.cssText=`top:${pct(Math.max(START,m.year-HIGHLIGHT_OFFSET))}%;--milestone-color:${m.color}`;els.dots.append(marker)});
       [1930,1960,1980,1995,2010,2026].forEach(y=>{const t=document.createElement("span");t.className="tick "+([1930,1960,1995,2026].includes(y)?"is-key":"");t.style.top=pct(y)+"%";t.textContent=y;els.ticks.append(t)});
     }
     function countsThrough(year){
@@ -373,21 +380,22 @@
     function showChapter(year){
       const ch=chapters.find(c=>year>=c.from&&year<=c.to)||chapters.at(-1);document.documentElement.style.setProperty("--chapter-color",ch.color);els.chapterTitle.textContent=ch.title;els.chapterCopy.textContent=ch.copy;
     }
-    function render(year,force=false,intro=false){
-      if(year===lastYear&&!force&&intro===introMode)return;lastYear=year;activeYear=year;introMode=intro;
-      const source=filtered(),winners=source.filter(d=>d.y===year),counts=countsThrough(year),progress=(year-START)/(END-START),milestone=intro?null:milestones.find(m=>m.year===year);
-      document.documentElement.style.setProperty("--year-progress",(progress*100)+"%");document.documentElement.style.setProperty("--active-color",winners[0]?(winners[0].cont==="América"?SA:EU):"#fff");
+    function render(year,force=false,intro=false,milestone=null,timelinePosition=year){
+      const moment=intro?"intro":milestone?`highlight-${year}`:`champion-${year}`;
+      if(moment===lastMoment&&!force)return;lastMoment=moment;activeYear=year;activeTimelinePosition=timelinePosition;activeMilestone=milestone;introMode=intro;
+      const source=filtered(),dataYear=milestone?year-1:year,winners=milestone?[]:source.filter(d=>d.y===year),counts=countsThrough(dataYear),progress=Math.max(0,Math.min(1,(timelinePosition-START)/(END-START)));
+      document.documentElement.style.setProperty("--year-progress",(progress*100)+"%");document.documentElement.style.setProperty("--year-track-trim",(34*progress)+"px");document.documentElement.style.setProperty("--active-color",milestone?milestone.color:winners[0]?(winners[0].cont==="América"?SA:EU):"#fff");
       els.intro.classList.toggle("is-hidden",!intro);els.story.classList.toggle("is-visible",!intro&&!milestone);els.special.classList.toggle("is-visible",Boolean(milestone));els.stage.classList.toggle("is-intro-hidden",intro);els.stage.style.opacity=milestone?".12":"1";showMilestone(milestone);
       els.year.textContent=year;els.markerYear.textContent=year;els.sa.textContent=pad(counts.sa);els.eu.textContent=pad(counts.eu);
       drawCurrentWinners(winners);
       drawBubbles(counts.map,winners);showChapter(year);
-      $$(".timeline-dot").forEach(d=>{const y=+d.dataset.year,valid=filter==="all"||d.dataset.type===filter;d.hidden=!valid;d.classList.toggle("is-past",valid&&y<year);d.classList.toggle("is-now",valid&&y===year)});
-      $$(".timeline-milestone").forEach(d=>{const y=+d.dataset.year;d.classList.toggle("is-past",y<year);d.classList.toggle("is-now",y===year)});
+      $$(".timeline-dot").forEach(d=>{const y=+d.dataset.year,valid=filter==="all"||d.dataset.type===filter;d.hidden=!valid;d.classList.toggle("is-past",valid&&y<year);d.classList.toggle("is-now",valid&&!milestone&&y===year)});
+      $$(".timeline-milestone").forEach(d=>{const y=+d.dataset.year;d.classList.toggle("is-past",y<year||!milestone&&y===year);d.classList.toggle("is-now",Boolean(milestone)&&y===year)});
     }
-    function onScroll(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;const max=els.space.offsetHeight-innerHeight,p=Math.max(0,Math.min(1,scrollY/max)),intro=p<INTRO_SCROLL,dataProgress=intro?0:(p-INTRO_SCROLL)/(1-INTRO_SCROLL);render(Math.round(START+dataProgress*(END-START)),false,intro)})}
-    $$(".filter").forEach(btn=>btn.addEventListener("click",()=>{filter=btn.dataset.filter;$$('.filter').forEach(b=>b.classList.toggle('is-active',b===btn));bubbleEls.forEach(el=>el.remove());bubbleEls.clear();lastYear=-1;render(activeYear,true,introMode)}));
-    addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",()=>{lastYear=-1;render(activeYear,true,introMode)});
-    addEventListener("keydown",e=>{const step=(els.space.offsetHeight-innerHeight)/(END-START);if(["ArrowDown","PageDown","ArrowRight"].includes(e.key)){e.preventDefault();scrollBy({top:e.key==="PageDown"?step*5:step,behavior:"smooth"})}if(["ArrowUp","PageUp","ArrowLeft"].includes(e.key)){e.preventDefault();scrollBy({top:e.key==="PageUp"?-step*5:-step,behavior:"smooth"})}if(e.key==="Home"){e.preventDefault();scrollTo({top:0,behavior:"smooth"})}if(e.key==="End"){e.preventDefault();scrollTo({top:els.space.offsetHeight,behavior:"smooth"})}});
+    function onScroll(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;const max=els.space.offsetHeight-innerHeight,p=Math.max(0,Math.min(1,scrollY/max)),intro=p<INTRO_SCROLL,dataProgress=intro?0:(p-INTRO_SCROLL)/(1-INTRO_SCROLL),stepIndex=Math.min(SCROLL_STEPS.length-1,Math.floor(dataProgress*SCROLL_STEPS.length)),step=SCROLL_STEPS[stepIndex]||SCROLL_STEPS[0];render(step.year,false,intro,intro?null:step.milestone,step.position)})}
+    $$(".filter").forEach(btn=>btn.addEventListener("click",()=>{filter=btn.dataset.filter;$$('.filter').forEach(b=>b.classList.toggle('is-active',b===btn));bubbleEls.forEach(el=>el.remove());bubbleEls.clear();lastMoment="";render(activeYear,true,introMode,activeMilestone,activeTimelinePosition)}));
+    addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",()=>{lastMoment="";render(activeYear,true,introMode,activeMilestone,activeTimelinePosition)});
+    addEventListener("keydown",e=>{const step=(els.space.offsetHeight-innerHeight)/SCROLL_STEPS.length;if(["ArrowDown","PageDown","ArrowRight"].includes(e.key)){e.preventDefault();scrollBy({top:e.key==="PageDown"?step*5:step,behavior:"smooth"})}if(["ArrowUp","PageUp","ArrowLeft"].includes(e.key)){e.preventDefault();scrollBy({top:e.key==="PageUp"?-step*5:-step,behavior:"smooth"})}if(e.key==="Home"){e.preventDefault();scrollTo({top:0,behavior:"smooth"})}if(e.key==="End"){e.preventDefault();scrollTo({top:els.space.offsetHeight,behavior:"smooth"})}});
     makeTimeline();render(START,true,true);onScroll();
   </script>
 </body>
