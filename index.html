@@ -123,23 +123,38 @@
     .bubble-count{position:relative;z-index:1;margin-top:5px;color:var(--bubble-color);font:700 clamp(10px,.9vw,17px)/1 "Albert Sans",sans-serif;text-shadow:0 1px 4px #000,0 0 10px #000}
     .bubble-count::after{content:" ×";font-size:.68em}
 
-    .timeline{position:absolute;z-index:15;top:102px;right:0;bottom:48px;width:132px}
+    .timeline{position:absolute;z-index:15;top:102px;right:0;bottom:48px;width:100px}
+    .timeline-track,.timeline-fill,.timeline-dots,.timeline-marker{pointer-events:none}
     .timeline-track{position:absolute;left:23px;top:8px;bottom:26px;width:1px;background:rgba(255,255,255,.42)}
     .timeline-fill{position:absolute;left:22px;top:8px;width:3px;height:calc(var(--year-progress) - var(--year-track-trim));max-height:calc(100% - 34px);background:linear-gradient(var(--sa),#fff 68%,var(--eu));box-shadow:0 0 14px rgba(255,255,255,.22)}
+    .timeline-hit{position:absolute;left:2px;right:0;top:8px;bottom:26px;z-index:8;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent}
+    .timeline-hit:focus-visible{outline:1px solid rgba(255,255,255,.5);outline-offset:3px;border-radius:12px}
+    .timeline.is-scrubbing .timeline-hit{cursor:grabbing}
+    .timeline-ghost{position:absolute;left:0;right:0;top:8px;height:0;z-index:7;pointer-events:none;opacity:0;transform:translateY(var(--ghost-y,0px));transition:opacity .16s ease}
+    .timeline.is-hovering .timeline-ghost{opacity:1}
+    .timeline-ghost::before{content:"";position:absolute;left:14px;top:-1px;width:19px;height:2px;border-radius:2px;background:rgba(255,255,255,.7);box-shadow:0 0 10px rgba(255,255,255,.35)}
+    .timeline-ghost b{position:absolute;left:44px;top:-8px;padding:2px 5px;border-radius:3px;background:rgba(6,8,8,.82);font:600 12px/1.3 "Albert Sans",sans-serif;letter-spacing:.06em;color:rgba(255,255,255,.88)}
     .timeline-dots{position:absolute;inset:8px auto 26px 18px;width:11px}
-    .timeline-dot{position:absolute;left:1px;width:7px;height:7px;border-radius:50%;background:var(--dot);transform:translateY(-50%);opacity:.44;transition:opacity .25s,transform .25s,box-shadow .25s}
-    .timeline-dot.is-past{opacity:.9}.timeline-dot.is-now{opacity:1;transform:translateY(-50%) scale(1.7);box-shadow:0 0 10px var(--dot)}
-    .timeline-milestone{position:absolute;z-index:3;left:-3px;width:15px;height:15px;border:1px solid rgba(255,255,255,.9);border-radius:50%;background:#090a0a;box-shadow:0 0 0 3px rgba(255,255,255,.06),0 0 13px rgba(255,255,255,.28);transform:translateY(-50%);transition:.25s ease}
+    .timeline-dot{position:absolute;left:1px;width:7px;height:7px;border-radius:50%;background:var(--dot);transform:translateY(-50%);opacity:.44;transition:opacity .2s,transform .2s,box-shadow .2s}
+    .timeline-dot.is-past{opacity:.9}
+    .timeline-dot.is-near{opacity:1;transform:translateY(-50%) scale(1.3)}
+    .timeline-dot.is-now{opacity:1;transform:translateY(-50%) scale(1.7);box-shadow:0 0 10px var(--dot)}
+    .timeline-milestone{position:absolute;z-index:3;left:-3px;width:15px;height:15px;border:1px solid rgba(255,255,255,.9);border-radius:50%;background:#090a0a;box-shadow:0 0 0 3px rgba(255,255,255,.06),0 0 13px rgba(255,255,255,.28);transform:translateY(-50%);transition:.25s ease;pointer-events:none}
     .timeline-milestone::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--milestone-color,#fff)}
     .timeline-milestone.is-past{opacity:.72}.timeline-milestone.is-now{transform:translateY(-50%) scale(1.32);box-shadow:0 0 0 4px rgba(255,255,255,.09),0 0 18px var(--milestone-color,#fff)}
     .timeline-marker{position:absolute;z-index:5;left:10px;top:calc(8px + var(--year-progress) - var(--year-track-trim));display:flex;align-items:center;gap:10px;transform:translateY(-50%);transition:top .12s linear}
-    .marker-ring{width:28px;height:28px;border:2px solid #fff;border-radius:50%;display:grid;place-items:center;background:rgba(4,5,5,.88);box-shadow:0 0 18px rgba(255,255,255,.18)}
+    .timeline.is-scrubbing .timeline-marker{transition:none}
+    .marker-ring{width:28px;height:28px;border:2px solid #fff;border-radius:50%;display:grid;place-items:center;background:rgba(4,5,5,.88);box-shadow:0 0 18px rgba(255,255,255,.18);transition:box-shadow .2s ease,scale .2s ease}
+    .timeline.is-scrubbing .marker-ring{scale:1.16;box-shadow:0 0 30px rgba(255,255,255,.45)}
     .marker-ring::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--active-color,#fff);box-shadow:0 0 10px var(--active-color,#fff)}
     .marker-year{position:absolute;right:40px;font:700 clamp(31px,3vw,55px)/1 "Barlow Condensed",sans-serif;white-space:nowrap;text-align:right;text-shadow:0 2px 10px #000}
-    .ticks{position:absolute;left:50px;top:8px;bottom:26px;right:0;pointer-events:none}
+    .ticks{position:absolute;left:44px;top:8px;bottom:26px;right:0;pointer-events:none}
     .tick{position:absolute;left:0;transform:translateY(-50%);display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.46);font:400 13px/1 "Albert Sans",sans-serif}
     .tick::before{content:"";width:8px;height:1px;background:rgba(255,255,255,.5)}
     .tick.is-key{color:rgba(255,255,255,.86);font-weight:600}
+    body.is-booting *,body.is-booting *::before,body.is-booting *::after{transition:none!important;animation:none!important}
+    body.is-scrubbing .bubble{transition:transform .16s linear,width .16s linear,height .16s linear,opacity .16s linear}
+    body.is-scrubbing .current-winner-crest,body.is-scrubbing .chapter-title,body.is-scrubbing .chapter-copy{transition:none}
 
     .special{position:absolute;z-index:18;left:0;right:0;top:104px;bottom:45px;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transform:scale(.96);transition:opacity .45s ease,transform .45s ease}
     .special.is-visible{opacity:1;transform:none}
@@ -186,11 +201,12 @@
       .bubble-crest{transition:none}
       .topbar{height:108px;margin:0 14px;grid-template-columns:minmax(0,1fr) auto;align-items:center;align-content:center;gap:8px}.title{gap:12px;white-space:nowrap;max-width:310px}.brand-name{font-size:14px}.brand-separator{height:27px}.brand-description{font-size:7px;line-height:1.65;letter-spacing:.28em}.filters{display:none}.mobile-filter{display:block;position:relative;justify-self:end;align-self:center}.mobile-filter select{height:27px;min-width:108px;padding:0 25px 0 10px;font-size:9px}.mobile-filter::after{right:10px;width:5px;height:5px}
       .intro{left:20px;right:20px;top:47%;width:auto}.intro h2{font-size:clamp(59px,20vw,82px)}.intro p{font-size:14px;line-height:1.5}.scroll-cue{margin-top:25px}
-      .story{left:14px;right:55px;top:121px;bottom:12px;width:auto;justify-content:flex-start}.story-copy-wrap{max-width:none}.chapter-title{max-width:100%;font-size:clamp(34px,10.8vw,41px);line-height:.87}.chapter-copy{max-width:100%;font-size:11px;line-height:1.38;margin-top:9px}.story-scoreboard{margin-top:14px;grid-template-columns:minmax(0,1fr) 29px minmax(0,1fr);gap:3px}.confed-card{padding:7px 6px 6px}.confed-head{gap:4px;min-height:24px}.confed-head img{width:23px;height:23px}.confed-name{font-size:8px;letter-spacing:.07em}.confed-region{font-size:5px;margin-top:2px;letter-spacing:.08em}.confed-total{gap:4px;margin:4px 0 5px}.confed-total strong{font-size:25px}.confed-total span{font-size:5px;letter-spacing:.08em}.confed-breakdown span{padding:5px 3px 0 0}.confed-breakdown span+span{padding-left:3px}.confed-breakdown small{font-size:4.5px;letter-spacing:0}.confed-breakdown b{font-size:10px}.versus span{width:27px;height:27px;font-size:10px}
-      .stage{left:8px;right:48px;top:clamp(300px,36svh,340px);bottom:54px}.active-year{font-size:11px}.current-winners{gap:22px;min-height:54px;margin-top:5px}.current-winner{min-width:74px}.current-winner-crest{width:34px;height:34px;margin-bottom:4px}.current-winner-name{max-width:90px;font-size:12px}.current-empty{max-width:270px;font-size:29px;line-height:.9}.stage-current{min-height:124px}.stage-current .current-winners{min-height:98px;margin-top:0;gap:20px}.stage-current .current-winner{min-width:92px}.stage-current .current-winner-crest{width:88px;height:88px;margin-bottom:4px}.stage-current .current-winner-name{font-size:12px}.stage-current .active-year{margin-top:5px;font-size:10px}
+      .story{left:14px;right:48px;top:121px;bottom:12px;width:auto;justify-content:flex-start}.story-copy-wrap{max-width:none}.chapter-title{max-width:100%;font-size:clamp(34px,10.8vw,41px);line-height:.87}.chapter-copy{max-width:100%;font-size:11px;line-height:1.38;margin-top:9px}.story-scoreboard{margin-top:14px;grid-template-columns:minmax(0,1fr) 29px minmax(0,1fr);gap:3px}.confed-card{padding:7px 6px 6px}.confed-head{gap:4px;min-height:24px}.confed-head img{width:23px;height:23px}.confed-name{font-size:8px;letter-spacing:.07em}.confed-region{font-size:5px;margin-top:2px;letter-spacing:.08em}.confed-total{gap:4px;margin:4px 0 5px}.confed-total strong{font-size:25px}.confed-total span{font-size:5px;letter-spacing:.08em}.confed-breakdown span{padding:5px 3px 0 0}.confed-breakdown span+span{padding-left:3px}.confed-breakdown small{font-size:4.5px;letter-spacing:0}.confed-breakdown b{font-size:10px}.versus span{width:27px;height:27px;font-size:10px}
+      .stage{left:8px;right:41px;top:clamp(300px,36svh,340px);bottom:54px}.active-year{font-size:11px}.current-winners{gap:22px;min-height:54px;margin-top:5px}.current-winner{min-width:74px}.current-winner-crest{width:34px;height:34px;margin-bottom:4px}.current-winner-name{max-width:90px;font-size:12px}.current-empty{max-width:270px;font-size:29px;line-height:.9}.stage-current{min-height:124px}.stage-current .current-winners{min-height:98px;margin-top:0;gap:20px}.stage-current .current-winner{min-width:92px}.stage-current .current-winner-crest{width:88px;height:88px;margin-bottom:4px}.stage-current .current-winner-name{font-size:12px}.stage-current .active-year{margin-top:5px;font-size:10px}
       .scoreboard{height:57px;gap:9px}.score{grid-template-columns:27px auto;min-width:105px;gap:6px}.score:last-child{grid-template-columns:auto 27px}.score img{width:27px;height:27px}.score .continent{font-size:7px;letter-spacing:.1em}.score strong{font-size:26px}.score small{font-size:6px;margin-left:2px}.score-divider{height:37px}
       .bubble-field{min-height:110px;margin-top:0}.bubble-crest{opacity:.09}.bubble.is-active .bubble-crest{opacity:.14}.bubble-name{font-size:6.5px}.bubble-count{font-size:8px;margin-top:2px}
-      .timeline{top:118px;right:4px;bottom:21px;width:52px}.timeline-track{left:12px;transition:opacity .4s ease}.timeline-fill{left:11px;transition:opacity .4s ease,box-shadow .4s ease}.timeline-dots{left:8px;transition:opacity .4s ease}.timeline-marker{left:-1px;gap:5px}.marker-ring{width:27px;height:27px;transition:opacity .4s ease,box-shadow .4s ease}.marker-year{right:34px;top:2px;font-size:22px}.ticks{display:none}
+      .timeline{top:118px;right:5px;bottom:21px;width:40px}.timeline-track{left:12px;transition:opacity .4s ease}.timeline-fill{left:11px;transition:opacity .4s ease,box-shadow .4s ease}.timeline-dots{left:8px;transition:opacity .4s ease}.timeline-marker{left:-1px;gap:5px}.marker-ring{width:27px;height:27px;transition:opacity .4s ease,box-shadow .4s ease,scale .2s ease}.marker-year{right:34px;top:2px;font-size:22px}.ticks{display:none}
+      .timeline-hit{left:-6px;right:-5px}.timeline-ghost::before{left:4px;width:15px}.timeline-ghost b{display:none}
       .timeline.is-context-muted .timeline-track{opacity:.1}
       .timeline.is-context-muted .timeline-fill{opacity:.1;box-shadow:none}
       .timeline.is-context-muted .timeline-dots{opacity:.12}
@@ -225,7 +241,7 @@
     @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
   </style>
 </head>
-<body>
+<body class="is-booting">
   <div class="scroll-space" id="scrollSpace">
     <main class="scene" aria-label="FIFA champions historical scrollytelling">
       <div class="backdrop" aria-hidden="true"></div><div class="vignette" aria-hidden="true"></div>
@@ -255,7 +271,7 @@
         </div>
       </aside>
 
-      <section class="stage" id="stage">
+      <section class="stage is-intro-hidden" id="stage">
         <div class="story-scoreboard stage-scoreboard" aria-label="Accumulated titles by confederation">
           <article class="confed-card" style="--score-color:var(--sa)">
             <div class="confed-head"><img src="south.png" alt=""><div><span class="confed-name">CONMEBOL</span><small class="confed-region">South America</small></div></div>
@@ -285,7 +301,9 @@
 
       <aside class="timeline" aria-label="Timeline from 1930 to 2026">
         <div class="timeline-track"></div><div class="timeline-fill"></div><div class="timeline-dots" id="timelineDots"></div>
+        <div class="timeline-ghost" id="timelineGhost"><b id="timelineGhostYear">1930</b></div>
         <div class="timeline-marker" id="timelineMarker"><span class="marker-ring"></span><strong class="marker-year" id="markerYear">1930</strong></div>
+        <div class="timeline-hit" id="timelineHit" role="slider" tabindex="0" aria-label="Scrub the timeline" aria-valuemin="1930" aria-valuemax="2026" aria-valuenow="1930"></div>
         <div class="ticks" id="ticks"></div>
       </aside>
     </main>
@@ -312,7 +330,7 @@
     ];
     const HIGHLIGHT_OFFSET=.55;
     const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-    const els={space:$("#scrollSpace"),intro:$("#intro"),story:$("#story"),stage:$("#stage"),current:$(".stage-current"),special:$("#milestoneSpecial"),timeline:$(".timeline"),mobileFilter:$("#mobileFilterSelect"),year:$("#activeYear"),currentWinners:$("#currentWinners"),sa:$("#saScore"),eu:$("#euScore"),saClub:$("#saClubScore"),saNational:$("#saNationalScore"),euClub:$("#euClubScore"),euNational:$("#euNationalScore"),field:$("#bubbleField"),markerYear:$("#markerYear"),dots:$("#timelineDots"),ticks:$("#ticks"),chapterTitle:$("#chapterTitle"),chapterCopy:$("#chapterCopy"),milestonePanel:$("#milestonePanel"),milestoneYear:$("#milestoneYear"),milestoneTitle:$("#milestoneTitle"),milestoneSub:$("#milestoneSub"),milestoneIcon:$("#milestoneIcon"),milestoneSa:$("#milestoneSa"),milestoneEu:$("#milestoneEu"),milestoneDetail:$("#milestoneDetail")};
+    const els={space:$("#scrollSpace"),intro:$("#intro"),story:$("#story"),stage:$("#stage"),current:$(".stage-current"),special:$("#milestoneSpecial"),timeline:$(".timeline"),mobileFilter:$("#mobileFilterSelect"),year:$("#activeYear"),currentWinners:$("#currentWinners"),sa:$("#saScore"),eu:$("#euScore"),saClub:$("#saClubScore"),saNational:$("#saNationalScore"),euClub:$("#euClubScore"),euNational:$("#euNationalScore"),field:$("#bubbleField"),markerYear:$("#markerYear"),dots:$("#timelineDots"),ticks:$("#ticks"),chapterTitle:$("#chapterTitle"),chapterCopy:$("#chapterCopy"),milestonePanel:$("#milestonePanel"),milestoneYear:$("#milestoneYear"),milestoneTitle:$("#milestoneTitle"),milestoneSub:$("#milestoneSub"),milestoneIcon:$("#milestoneIcon"),milestoneSa:$("#milestoneSa"),milestoneEu:$("#milestoneEu"),milestoneDetail:$("#milestoneDetail"),hit:$("#timelineHit"),ghost:$("#timelineGhost"),ghostYear:$("#timelineGhostYear")};
     let filter="all",scrollSteps=[],activeYear=START,activeTimelinePosition=START,activeMilestone=null,lastMoment="",introMode=null,bubbleEls=new Map(),raf=0;
     let dotEls=[],milestoneEls=[],layoutCache=new Map(),fieldW=600,fieldH=330,maxScroll=1,lastWinnerKey=null;
     const filtered=()=>filter==="all"?RAW:RAW.filter(d=>d.e===filter);
@@ -465,7 +483,14 @@
     }
     function drawBubbles(data,winners,cacheKey){
       const nodes=layoutBubbles(data,cacheKey),needed=new Set(nodes.map(n=>n.cont+"|"+n.name)),winnerNames=new Set(winners.map(d=>d.cont+"|"+d.c));
-      bubbleEls.forEach((el,key)=>{if(!needed.has(key)){el.style.opacity=0;el.style.setProperty("--bs",".3");setTimeout(()=>{if(!needed.has(key)){el.remove();bubbleEls.delete(key)}},360)}});
+      bubbleEls.forEach((el,key)=>{
+        if(needed.has(key)){if(el._exit){clearTimeout(el._exit);el._exit=0}return}
+        if(el._exit)return;
+        el.style.opacity=0;el.style.setProperty("--bs",".3");
+        // Solo se retira si la entrada sigue apuntando a ESTE elemento: durante un
+        // barrido rápido la misma clave puede haberse recreado ya.
+        el._exit=setTimeout(()=>{el._exit=0;if(bubbleEls.get(key)===el){el.remove();bubbleEls.delete(key)}else el.remove()},360);
+      });
       nodes.forEach(n=>{
         const key=n.cont+"|"+n.name;let el=bubbleEls.get(key);
         if(!el){
@@ -523,12 +548,72 @@
       els.year.textContent=year;els.markerYear.textContent=year;els.sa.textContent=pad(confedScore.sa.total);els.eu.textContent=pad(confedScore.eu.total);els.saClub.textContent=pad(confedScore.sa.club);els.saNational.textContent=pad(confedScore.sa.national);els.euClub.textContent=pad(confedScore.eu.club);els.euNational.textContent=pad(confedScore.eu.national);
       drawCurrentWinners(winners);
       drawBubbles(counts.map,winners,filter+"|"+dataYear);showChapter(year);
-      for(let i=0;i<dotEls.length;i++){const d=dotEls[i],valid=filter==="all"||d._t===filter;if(d.hidden!==!valid)d.hidden=!valid;d.classList.toggle("is-past",valid&&d._y<year);d.classList.toggle("is-now",valid&&!milestone&&d._y===year)}
+      for(let i=0;i<dotEls.length;i++){const d=dotEls[i],valid=filter==="all"||d._t===filter;if(d.hidden!==!valid)d.hidden=!valid;const now=valid&&!milestone&&d._y===year;d.classList.toggle("is-past",valid&&d._y<year);d.classList.toggle("is-near",valid&&!now&&Math.abs(d._y-timelinePosition)<=2);d.classList.toggle("is-now",now)}
+      els.hit.setAttribute("aria-valuenow",year);
       for(let i=0;i<milestoneEls.length;i++){const d=milestoneEls[i];d.classList.toggle("is-past",d._y<year||!milestone&&d._y===year);d.classList.toggle("is-now",Boolean(milestone)&&d._y===year)}
     }
     function renderFromScroll(){const p=Math.max(0,Math.min(1,scrollY/maxScroll)),intro=p<INTRO_SCROLL,dataProgress=intro?0:(p-INTRO_SCROLL)/(1-INTRO_SCROLL),stepIndex=Math.min(scrollSteps.length-1,Math.floor(dataProgress*scrollSteps.length)),step=scrollSteps[stepIndex]||scrollSteps[0];render(step.year,false,intro,intro?null:step.milestone,step.position)}
     function onScroll(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;renderFromScroll()})}
-    function setFilter(next){filter=next;$$('.filter').forEach(b=>b.classList.toggle('is-active',b.dataset.filter===filter));els.mobileFilter.value=filter;bubbleEls.forEach(el=>el.remove());bubbleEls.clear();layoutCache.clear();lastWinnerKey=null;scrollSteps=buildScrollSteps();lastMoment="";renderFromScroll();warmLayouts()}
+    function setFilter(next){filter=next;$$('.filter').forEach(b=>b.classList.toggle('is-active',b.dataset.filter===filter));els.mobileFilter.value=filter;bubbleEls.forEach(el=>{if(el._exit)clearTimeout(el._exit);el.remove()});bubbleEls.clear();els.field.replaceChildren();layoutCache.clear();lastWinnerKey=null;scrollSteps=buildScrollSteps();lastMoment="";renderFromScroll();warmLayouts()}
+    const TRACK_SPAN=END-START;
+    let scrubPointer=null,scrubStartY=0,scrubbing=false,scrubRaf=0,pendingY=null,flyRaf=0;
+    function trackFraction(clientY){const r=els.hit.getBoundingClientRect();return r.height?Math.max(0,Math.min(1,(clientY-r.top)/r.height)):0}
+    function nearestStep(position){let best=0,bestGap=Infinity;for(let i=0;i<scrollSteps.length;i++){const gap=Math.abs(scrollSteps[i].position-position);if(gap<bestGap){bestGap=gap;best=i}}return best}
+    function scrollForStep(index){return maxScroll*(INTRO_SCROLL+(1-INTRO_SCROLL)*((index+.5)/scrollSteps.length))}
+    function stopFly(){if(flyRaf){cancelAnimationFrame(flyRaf);flyRaf=0}}
+    // Vuelo hasta el destino: el scroll se recorre en el tiempo, así que el render
+    // va pasando por cada año intermedio en lugar de saltar.
+    function flyTo(target){
+      stopFly();
+      const from=scrollY,delta=target-from;
+      if(Math.abs(delta)<2){scrollTo(0,target);return}
+      const reach=Math.abs(delta)/Math.max(1,maxScroll),duration=Math.min(1050,300+reach*1500),t0=performance.now();
+      const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      const tick=now=>{const t=Math.min(1,(now-t0)/duration);scrollTo(0,from+delta*ease(t));flyRaf=t<1?requestAnimationFrame(tick):0};
+      flyRaf=requestAnimationFrame(tick);
+    }
+    function moveGhost(clientY){
+      const r=els.hit.getBoundingClientRect(),f=trackFraction(clientY);
+      els.ghost.style.setProperty("--ghost-y",(f*r.height)+"px");
+      const step=scrollSteps[nearestStep(START+f*TRACK_SPAN)];
+      const label=step?step.year:Math.round(START+f*TRACK_SPAN);
+      if(els.ghostYear._v!==label){els.ghostYear.textContent=label;els.ghostYear._v=label}
+      els.timeline.classList.add("is-hovering");
+    }
+    function setScrubbing(on){
+      if(scrubbing===on)return;scrubbing=on;
+      els.timeline.classList.toggle("is-scrubbing",on);document.body.classList.toggle("is-scrubbing",on);
+    }
+    function scrubTo(clientY){
+      pendingY=clientY;
+      if(scrubRaf)return;
+      scrubRaf=requestAnimationFrame(()=>{scrubRaf=0;if(pendingY===null)return;const y=pendingY;pendingY=null;scrollTo(0,scrollForStep(nearestStep(START+trackFraction(y)*TRACK_SPAN)));moveGhost(y)});
+    }
+    els.hit.addEventListener("pointerdown",event=>{
+      stopFly();scrubPointer=event.pointerId;scrubStartY=event.clientY;
+      els.timeline.classList.add("is-hovering");moveGhost(event.clientY);
+      try{els.hit.setPointerCapture(event.pointerId)}catch(error){}
+      event.preventDefault();
+    });
+    els.hit.addEventListener("pointermove",event=>{
+      if(scrubPointer===null){if(event.pointerType!=="touch")moveGhost(event.clientY);return}
+      if(event.pointerId!==scrubPointer)return;
+      if(!scrubbing&&Math.abs(event.clientY-scrubStartY)<4)return;
+      setScrubbing(true);scrubTo(event.clientY);
+    });
+    function endScrub(event){
+      if(scrubPointer===null||event.pointerId!==scrubPointer)return;
+      scrubPointer=null;pendingY=null;
+      try{els.hit.releasePointerCapture(event.pointerId)}catch(error){}
+      if(!scrubbing)flyTo(scrollForStep(nearestStep(START+trackFraction(event.clientY)*TRACK_SPAN)));
+      setScrubbing(false);
+      if(event.pointerType==="touch")els.timeline.classList.remove("is-hovering");
+    }
+    els.hit.addEventListener("pointerup",endScrub);
+    els.hit.addEventListener("pointercancel",endScrub);
+    els.hit.addEventListener("pointerleave",()=>{if(scrubPointer===null)els.timeline.classList.remove("is-hovering")});
+    addEventListener("wheel",stopFly,{passive:true});
+    addEventListener("touchstart",event=>{if(scrubPointer===null)stopFly()},{passive:true});
     $$(".filter").forEach(btn=>btn.addEventListener("click",()=>setFilter(btn.dataset.filter)));
     els.mobileFilter.addEventListener("change",()=>setFilter(els.mobileFilter.value));
     addEventListener("scroll",onScroll,{passive:true});
@@ -551,6 +636,8 @@
       idleRun(step);
     }
     measureStage();scrollSteps=buildScrollSteps();makeTimeline();render(START,true,true);onScroll();warmLayouts();
+    requestAnimationFrame(()=>requestAnimationFrame(()=>document.body.classList.remove("is-booting")));
+    setTimeout(()=>document.body.classList.remove("is-booting"),700);
     addEventListener("load",()=>{measureStage();lastMoment="";renderFromScroll();warmLayouts()},{once:true});
   </script>
 </body>
